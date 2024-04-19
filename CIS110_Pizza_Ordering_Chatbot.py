@@ -11,62 +11,79 @@ if userName.lower() == "justin":
 else:
     print(f"\nHello, {userName}. It-sa nice to meet you!")
     
-#User enters size, field cannot be left blank, entry must be recognized by application.*****
-size = input("\nNow, tell-a me what size-a do you want? Enter small, medium, or-a large:  ")
-while size.lower() not in ["small", "medium", "large"]:
-    size = input("Oh-a No! Invalid value! Please-a enter small, medium, or-a large:  ")
+#Checkpoint spot for where to start if there is another order after initial order.
+keepGoing = "y"
+while keepGoing.lower() == "y":
     
-#User enters flavor, field cannot be left blank.*****
-flavor = input("\nHere we-a go! Now, Enter the flavor of-a pizza:  ")
-while len(flavor) == 0:
-    flavor = input("Oh-a No! Flavor cannot be blank! Please-a enter a flavor:  ")
+    #User enters size, field cannot be left blank, entry must be recognized by application.*****
+    size = input("\nNow, tell-a me what size-a do you want? Enter small, medium, or-a large:  ")
+    while size.lower() not in ["small", "medium", "large"]:
+        size = input("Oh-a No! Invalid value! Please-a enter small, medium, or-a large:  ")
     
-#User enters crust type, field cannot be left blank.*****
-crustType = input("\nYahoo! Now, What type of-a crust do you-a want:  ")
-while len(crustType) == 0:
-    crustType = input("Oh no! Crust type cannot be-a blank! Please-a enter crust type:  ")
+    #User enters flavor, field cannot be left blank.*****
+    flavor = input("\nHere we-a go! Now, Enter the flavor of-a pizza:  ")
+    while len(flavor) == 0:
+        flavor = input("Oh-a No! Flavor cannot be blank! Please-a enter a flavor:  ")
+    
+    #User enters crust type, field cannot be left blank.*****
+    crustType = input("\nYahoo! Now, What type of-a crust do you-a want:  ")
+    while len(crustType) == 0:
+        crustType = input("Oh no! Crust type cannot be-a blank! Please-a enter crust type:  ")
 
-#User enters quantity, field must be a numeric value.*****
-quantity = input("\nYipee! How many of these-a pies do you want to-a order? Enter a numeric value:  ")
-while not quantity.isdigit():
-    quantity = input("\nOh-a No! Value not-a recognized. Please-a enter a numeric value:  ")
-quantity = int(quantity)
+    #User enters quantity, field must be a numeric value.*****
+    quantity = input("\nYipee! How many of these-a pies do you want to-a order? Enter a numeric value:  ")
+    while not quantity.isdigit():
+        quantity = input("\nOh-a No! Value not-a recognized. Please-a enter a numeric value:  ")
+    quantity = int(quantity)
 
-#User enters method for receiving order, entry must be recognized by application, for delivery orders add $5 fee.*****
-method = input("\nIs-a this carry out or delivery:  ")
-while method not in ["carry out", "delivery"]:
-    method = input("Oh-ho-ho No! Invalid value! Please-a enter carry out or delivery:  ")
+    #User enters method for receiving order, entry must be recognized by application, for delivery orders add $5 fee.*****
+    method = input("\nIs-a this carry out or delivery:  ")
+    while method not in ["carry out", "delivery"]:
+        method = input("Oh-ho-ho No! Invalid value! Please-a enter carry out or delivery:  ")
     
-#Delivery Fee.*****
-if method.lower() == "delivery":
-    deliveryFee = 5
-else:
-    deliveryFee = 0
+    #Delivery Fee.*****
+    if method.lower() == "delivery":
+        deliveryFee = 5
+    else:
+        deliveryFee = 0
     
-#Sales Tax.*****
-salesTax = 1.1
+    #Sales Tax.*****
+    salesTax = 1.1
 
-#Pricce per piza.*****
-if size.lower() == "small":
-    pizzaCost = 8.99
-elif size.lower() == "medium":
-    pizzaCost = 14.99
-elif size.lower() == "large":
-    pizzaCost = 17.99
+    #Pricce per piza.*****
+    if size.lower() == "small":
+        pizzaCost = 8.99
+    elif size.lower() == "medium":
+        pizzaCost = 14.99
+    elif size.lower() == "large":
+        pizzaCost = 17.99
     
-#Total cost of pizza.******
-total = (pizzaCost * quantity) * salesTax + deliveryFee
+    #Total cost of pizza.******
+    total = (pizzaCost * quantity) * salesTax + deliveryFee
 
-#Order summary, Thank user for order.*****
-print("-" * 10)
-print(f"Thank-a you, {userName}, for your-a order.")
-print(f"Your-a {quantity} {size} {flavor} pizza pie(s) with {crustType} crust-a costs ${total:,.2f}.")
+    #Order summary, Thank user for order.*****
+    print("-" * 10)
+    print(f"Thank-a you, {userName}, for your-a order.")
+    print(f"Your-a {quantity} {size} {flavor} pizza pie(s) with {crustType} crust-a costs ${total:,.2f}.")
 
-#Coupon Statement.*****
-if total >= 50:
-    print("\nWhoo-A-Hoo! Congratulations! You've been awarded a $10 off-a coupon for your-a next order!")
-else:
-    print("\nOrder over-a $50 will receive a free $10 off-a coupon!")
+    #Coupon Statement.*****
+    if total >= 50:
+        print("\nWhoo-A-Hoo! Congratulations! You've been awarded a $10 off-a coupon for your-a next order!")
+    else:
+        print("\nOrder over-a $50 will receive a free $10 off-a coupon!")
+        print("-" * 10)
+
+    #Order received and add a countdown timer for when the order is ready.
+    print("Your-a order has-a been received! ETA 3 minutes!")
+    for min in range(3, 0, -1):
+        print(min, "minutes to a-go")
+        for seconds in range(60, 0, -1):
+            print(seconds, end = "\r")
+            import time
+            time.sleep(1)
+    print("Order is a-ready!")
     
-#End of application dialog.
-print("-" * 10)
+    #Ask the customer if they would like anotther order and continue from the top checkpoint.
+    keepGoing = input("Do you a-want to place another order? Enter y or n:  ")
+    while keepGoing.lower() not in ["y", "n"]:
+        keepGoing = input("OH A-NO! Invalid value: Enter y or n:  ")
